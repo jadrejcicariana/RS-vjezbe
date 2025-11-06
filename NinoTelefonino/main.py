@@ -20,9 +20,12 @@ def validiraj_broj_telefona(broj: str):
     
     novi_broj = '0'+novi_broj
 
-    for x in pozivni.keys():
+    pronadjen = False
 
-        if novi_broj.startswith(x):
+    for x in pozivni.keys():
+       
+        if (novi_broj.startswith(x) & (not pronadjen)):
+            pronadjen = True
             pozivni_broj = x
             broj_ostatak = novi_broj[len(x):]
             vrsta = pozivni[x]["vrsta"]
@@ -45,8 +48,10 @@ def validiraj_broj_telefona(broj: str):
                     operater = "None"
                 else:
                     validan = False
+            break
 
-            
+    if not pronadjen:
+        validan = False         
            
     return {
         "pozivni_broj": pozivni_broj,
@@ -56,6 +61,5 @@ def validiraj_broj_telefona(broj: str):
         "operater": operater,
         "validan": validan
     }
-
 
 print(validiraj_broj_telefona("+385 91 123 4567"))
